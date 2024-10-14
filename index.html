@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AXT-AyaKoto/formula.math.js</title>
+    <title>AXT-AyaKoto/formula.js</title>
     <script type="module" src="https://cdn.jsdelivr.net/gh/AXT-AyaKoto/load.md.js/module.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/AXT-AyaKoto/formula.math.js/script.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/AXT-AyaKoto/article.css/main.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/default.min.css">
 </head>
@@ -13,7 +14,69 @@
 <body>
     <main>
         <article data-load-md-js="./README.md"></article>
-        <article data-load-md-js>[GitHubで見る](https://github.com/AXT-AyaKoto/formula.math.js)</article>
+        <article>
+            <h2>テスト</h2>
+            <h3>二次方程式の実数解 (ax^2 + bx + c = 0)</h3>
+            <ul>
+                <li>a = <input type="number" id="quadEquation-a" value="2"></li>
+                <li>b = <input type="number" id="quadEquation-b" value="-5"></li>
+                <li>c = <input type="number" id="quadEquation-c" value="2"></li>
+                <li>x = <input type="number" id="quadEquation-x1" disabled>, <input type="number" id="quadEquation-x2"
+                        disabled></li>
+            </ul>
+            <h3>三次方程式の実数解の一つ (ax^3 + bx^2 + cx + d = 0)</h3>
+            <ul>
+                <li>a = <input type="number" id="cubicEquation-a" value="1"></li>
+                <li>b = <input type="number" id="cubicEquation-b" value="-6"></li>
+                <li>c = <input type="number" id="cubicEquation-c" value="12"></li>
+                <li>d = <input type="number" id="cubicEquation-d" value="-8"></li>
+                <li>x1 = <input type="number" id="cubicEquation-x" disabled></li>
+            </ul>
+            <h3>三平方の定理 斜辺の長さ (c = √(a + b))</h3>
+            <ul>
+                <li>a = <input type="number" id="pythagoreanTheorem-a" value="3"></li>
+                <li>b = <input type="number" id="pythagoreanTheorem-b" value="4"></li>
+                <li>c = <input type="number" id="pythagoreanTheorem-c" disabled></li>
+            </ul>
+            <script>
+                // 二次方程式の実数解 (ax^2 + bx + c = 0)
+                document.querySelectorAll("[id^=quadEquation]").forEach((element) => {
+                    element.oninput = () => {
+                        const a = parseFloat(document.getElementById("quadEquation-a").value);
+                        const b = parseFloat(document.getElementById("quadEquation-b").value);
+                        const c = parseFloat(document.getElementById("quadEquation-c").value);
+                        const [x1, x2] = formula.quadEquation(a, b, c);
+                        document.getElementById("quadEquation-x1").value = x1;
+                        document.getElementById("quadEquation-x2").value = x2;
+                    };
+                });
+                // 三次方程式の実数解の一つ (ax^3 + bx^2 + cx + d = 0)
+                document.querySelectorAll("[id^=cubicEquation]").forEach((element) => {
+                    element.oninput = () => {
+                        const a = parseFloat(document.getElementById("cubicEquation-a").value);
+                        const b = parseFloat(document.getElementById("cubicEquation-b").value);
+                        const c = parseFloat(document.getElementById("cubicEquation-c").value);
+                        const d = parseFloat(document.getElementById("cubicEquation-d").value);
+                        const x = formula.cubicEquation(a, b, c, d);
+                        document.getElementById("cubicEquation-x").value = x;
+                    };
+                });
+                // 三平方の定理 斜辺の長さ (c = √(a + b))
+                document.querySelectorAll("[id^=pythagoreanTheorem]").forEach((element) => {
+                    element.oninput = () => {
+                        const a = parseFloat(document.getElementById("pythagoreanTheorem-a").value);
+                        const b = parseFloat(document.getElementById("pythagoreanTheorem-b").value);
+                        const c = formula.pythagoreanTheorem(a, b);
+                        document.getElementById("pythagoreanTheorem-c").value = c;
+                    };
+                });
+                // 初期入力値の計算
+                document.querySelector("[id^=quadEquation]").oninput();
+                document.querySelector("[id^=cubicEquation]").oninput();
+                document.querySelector("[id^=pythagoreanTheorem]").oninput();
+            </script>
+        </article>
+        <article data-load-md-js>[GitHubで見る](https://github.com/AXT-AyaKoto/formula.js)</article>
     </main>
 </body>
 
